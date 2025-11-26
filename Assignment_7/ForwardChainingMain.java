@@ -1,8 +1,8 @@
 import java.util.*;
 
 class Rule {
-    List<String> premises; // IF part
-    String conclusion;     // THEN part
+    List<String> premises; 
+    String conclusion;     
 
     Rule() {
         premises = new ArrayList<>();
@@ -14,11 +14,10 @@ class ForwardChaining {
     private Set<String> facts = new HashSet<>();
     private String goal;
 
-    // Add a new rule
     public void addRule(Scanner sc) {
         System.out.print("Enter number of premises: ");
         int n = sc.nextInt();
-        sc.nextLine(); // consume newline
+        sc.nextLine();
 
         Rule r = new Rule();
         System.out.println("Enter premises:");
@@ -34,7 +33,6 @@ class ForwardChaining {
         System.out.println("Rule added successfully!");
     }
 
-    // Add a fact
     public void addFact(Scanner sc) {
         System.out.print("Enter fact: ");
         String f = sc.nextLine().trim();
@@ -42,13 +40,11 @@ class ForwardChaining {
         System.out.println("Fact added successfully!");
     }
 
-    // Set goal
     public void setGoal(Scanner sc) {
         System.out.print("Enter goal: ");
         goal = sc.nextLine().trim();
     }
 
-    // Display rules and facts
     public void display() {
         System.out.println("\n--- Rules ---");
         for (int i = 0; i < rules.size(); i++) {
@@ -68,7 +64,6 @@ class ForwardChaining {
         System.out.println("\nGoal: " + goal);
     }
 
-    // Forward chaining algorithm
     public void forwardChaining() {
         System.out.println("\nApplying Forward Chaining...");
 
@@ -95,13 +90,13 @@ class ForwardChaining {
                 }
 
                 if (derivedFacts.contains(goal)) {
-                    System.out.println("\n✅ Goal '" + goal + "' is reached!");
+                    System.out.println("\nGoal '" + goal + "' is reached!");
                     return;
                 }
             }
         }
 
-        System.out.println("\n❌ Goal '" + goal + "' cannot be derived.");
+        System.out.println("\nGoal '" + goal + "' cannot be derived.");
     }
 }
 
@@ -126,7 +121,7 @@ public class ForwardChainingMain {
                 sc.next();
             }
             choice = sc.nextInt();
-            sc.nextLine(); // consume newline
+            sc.nextLine();
 
             switch (choice) {
                 case 1:
