@@ -3,17 +3,22 @@ import java.util.*;
 public class FamilyTreeKB {
 
     // Knowledge base using HashMaps
-    static Map<String, List<String>> parentToChildren = new HashMap<>(); // Parent → list of children
-    static Map<String, String> childToParent = new HashMap<>();          // Child → parent
+    static Map<String, List<String>> parentToChildren = new HashMap<>(); 
+    static Map<String, String> childToParent = new HashMap<>();
 
-    // Function to add a relationship to knowledge base
+    // Function to add a relationship
     static void addRelation(String parent, String child) {
-        parentToChildren.putIfAbsent(parent, new ArrayList<>());
+
+        // Manual replacement of putIfAbsent for older Java versions
+        if (!parentToChildren.containsKey(parent)) {
+            parentToChildren.put(parent, new ArrayList<String>());
+        }
+
         parentToChildren.get(parent).add(child);
         childToParent.put(child, parent);
     }
 
-    // Function to display children of a given person
+    // Function to display children
     static void showChildren(String parent) {
         if (parentToChildren.containsKey(parent)) {
             System.out.print("Children of " + parent + ": ");
@@ -26,7 +31,7 @@ public class FamilyTreeKB {
         }
     }
 
-    // Function to display parent of a given person
+    // Function to display parent
     static void showParent(String child) {
         if (childToParent.containsKey(child)) {
             System.out.println("Parent of " + child + " is " + childToParent.get(child));
