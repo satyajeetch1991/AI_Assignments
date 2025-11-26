@@ -9,6 +9,7 @@ public class BackwardChaining {
 
     // Function to check if a goal can be proven using backward chaining
     static boolean backwardChaining(String goal, Set<String> visited) {
+
         // If goal is already a known fact
         if (facts.contains(goal))
             return true;
@@ -22,12 +23,14 @@ public class BackwardChaining {
         if (rules.containsKey(goal)) {
             for (List<String> premises : rules.get(goal)) {
                 boolean allTrue = true;
+
                 for (String p : premises) {
                     if (!backwardChaining(p, visited)) {
                         allTrue = false;
                         break;
                     }
                 }
+
                 if (allTrue)
                     return true;
             }
@@ -40,17 +43,26 @@ public class BackwardChaining {
         int choice;
         String goal;
 
-        // Sample Knowledge Base
-        // Rule: If "A" and "B" then "C"
-        rules.putIfAbsent("C", new ArrayList<>());
+        // ------------------------------
+        // SAMPLE KNOWLEDGE BASE
+        // ------------------------------
+        // Rule: A & B → C
+        if (!rules.containsKey("C"))
+            rules.put("C", new ArrayList<List<String>>());
         rules.get("C").add(Arrays.asList("A", "B"));
-        // Rule: If "D" then "B"
-        rules.putIfAbsent("B", new ArrayList<>());
+
+        // Rule: D → B
+        if (!rules.containsKey("B"))
+            rules.put("B", new ArrayList<List<String>>());
         rules.get("B").add(Arrays.asList("D"));
+
         // Facts
         facts.add("A");
         facts.add("D");
 
+        // ------------------------------
+        // MENU
+        // ------------------------------
         do {
             System.out.println("\n=== Backward Chaining Menu ===");
             System.out.println("1. Show Knowledge Base");
@@ -64,6 +76,7 @@ public class BackwardChaining {
                     System.out.print("\nFacts: ");
                     for (String f : facts)
                         System.out.print(f + " ");
+
                     System.out.println("\nRules:");
                     for (Map.Entry<String, List<List<String>>> entry : rules.entrySet()) {
                         String conclusion = entry.getKey();
@@ -83,6 +96,7 @@ public class BackwardChaining {
                     System.out.print("Enter goal to prove: ");
                     goal = sc.next();
                     Set<String> visited = new HashSet<>();
+
                     if (backwardChaining(goal, visited))
                         System.out.println("Goal '" + goal + "' can be PROVEN.");
                     else
@@ -96,6 +110,7 @@ public class BackwardChaining {
                 default:
                     System.out.println("Invalid choice!");
             }
+
         } while (choice != 3);
 
         sc.close();
